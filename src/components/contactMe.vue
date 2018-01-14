@@ -28,7 +28,7 @@
                             description="We'll never share your email with anyone else.">
                 <b-form-input id="exampleInput1"
                               type="email"
-                              v-model="form.email"
+                              v-model="commentForm.email"
                               required
                               placeholder="Enter email"
                               size="lg">
@@ -40,14 +40,14 @@
                             label-for="exampleInput2">
                 <b-form-input id="exampleInput2"
                               type="text"
-                              v-model="form.name"
+                              v-model="commentForm.name"
                               required
                               placeholder="Enter name"
                               size="lg">
                 </b-form-input>
               </b-form-group>
 
-              <b-button type="submit" variant="primary" size="lg">Submit</b-button>
+              <b-button type="submit" variant="primary" size="lg" @click="sendComment">Submit</b-button>
             </b-form>
           </b-col>
 
@@ -56,7 +56,7 @@
                           label="Comment:"
                           label-for="textarea1">
               <b-form-textarea id="textarea1"
-                               v-model="text"
+                               v-model="commentForm.comment"
                                placeholder="Enter your comment"
                                :rows="3"
                                :max-rows="6"
@@ -74,6 +74,12 @@
 export default {
   data () {
     return {
+      commentForm: {
+        email: '',
+        name: '',
+        comment: '',
+      },
+
       text: '',
       form: {
         email: '',
@@ -103,6 +109,18 @@ export default {
       /* Trick to reset/clear native browser form validation state */
       this.show = false;
       this.$nextTick(() => { this.show = true });
+    },
+
+    sendComment () {
+      var self = this
+
+      var url = 'http://localhost:3000/email/comment'
+      self.$http.post(url, self.commentForm).then(response => {
+        console.log('RESPONSE (GET):' + response.body)
+      }, response => {
+        console.log('ERROR (GET): ' + url)
+      })
+
     }
   }
 }

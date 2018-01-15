@@ -45,6 +45,7 @@ export default {
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Rajdhani');
+  @import url('https://fonts.googleapis.com/css?family=Jura');
 
   .nav {
     font-family: Rajdhani;

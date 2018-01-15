@@ -21,7 +21,7 @@
 
         <b-row style="font-size: 2.5vh; font-family: Rajdhani; margin-top: 2vh">
           <b-col style="text-align: left">
-            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <b-form>
               <b-form-group id="exampleInputGroup1"
                             label="Email address:"
                             label-for="exampleInput1"
@@ -47,7 +47,7 @@
                 </b-form-input>
               </b-form-group>
 
-              <b-button type="submit" variant="primary" size="lg" @click="sendComment">Submit</b-button>
+              <b-button variant="primary" size="lg" @click="sendComment">Submit</b-button>
             </b-form>
           </b-col>
 
@@ -65,6 +65,22 @@
             </b-form-group>
           </b-col>
         </b-row>
+
+        <b-row style="margin-top: 2vh">
+          <b-alert variant="success"
+                   dismissible
+                   :show="showSuccess"
+                   style="width: 100%"
+                   @dismissed="showSuccess=false">
+            Comment Submitted!
+          </b-alert>
+          <b-alert variant="danger"
+                   dismissible
+                   :show="showFailure"
+                   @dismissed="showFailure=true">
+            Failed to submit comment!
+          </b-alert>
+        </b-row>
     </b-container>
   </div>
 </template>
@@ -77,50 +93,30 @@ export default {
       commentForm: {
         email: '',
         name: '',
-        comment: '',
+        comment: ''
       },
-
-      text: '',
-      form: {
-        email: '',
-        name: '',
-        food: null,
-        checked: []
-      },
-      foods: [
-        { text: 'Select One', value: null },
-        'Carrots', 'Beans', 'Tomatoes', 'Corn'
-      ],
-      show: true
+      showSuccess: false,
+      showFailure: false
     }
   },
   methods: {
-    onSubmit (evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
-    onReset (evt) {
-      evt.preventDefault();
-      /* Reset our form values */
-      this.form.email = '';
-      this.form.name = '';
-      this.form.food = null;
-      this.form.checked = [];
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false;
-      this.$nextTick(() => { this.show = true });
-    },
-
     sendComment () {
       var self = this
 
       var url = 'http://localhost:3000/email/comment'
       self.$http.post(url, self.commentForm).then(response => {
         console.log('RESPONSE (GET):' + response.body)
+        self.showSuccess = true
       }, response => {
         console.log('ERROR (GET): ' + url)
+        self.showFailure = true
       })
 
+      self.resetCommentForm()
+    },
+
+    resetCommentForm () {
+      this.commentForm.email = this.commentForm.name = this.commentForm.comment = ''
     }
   }
 }

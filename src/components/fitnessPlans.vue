@@ -19,9 +19,10 @@
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
-                With supporting text below as a natural lead-in to additional content.
+                This program is designed to get you <strong>BIG AND LEAN</strong>. All workouts are designed around
+                the idea of building muscle, and burning fat.
               </p>
-              <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='8'" style="font-family: Jura">Start Here</b-btn>
+              <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='Bodybuilding'" style="font-family: Jura">Start Here</b-btn>
             </b-card>
           </b-col>
 
@@ -32,9 +33,10 @@
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
-                With supporting text below as a natural lead-in to additional content.
+                This program will be focused on <strong>BUILDING YOUR STRENGTH</strong>. These workouts do not focus on building muscle
+                as much as they do for building strength.
               </p>
-              <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='16'" style="font-family: Jura">Start Here</b-btn>
+              <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='Powerlifting'" style="font-family: Jura">Start Here</b-btn>
             </b-card>
           </b-col>
 
@@ -45,14 +47,17 @@
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
-                With supporting text below as a natural lead-in to additional content.
+                I have designed hybrid programs that will focus on both <strong>BUILDING MUSCLE AND STRENGTH</strong>. If you want to build muscle and get
+                strong, this is the program for you!
               </p>
-              <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='24'" style="font-family: Jura">Start Here</b-btn>
+              <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='Hybrid'" style="font-family: Jura">Start Here</b-btn>
             </b-card>
 
-            <b-modal id="modal1" :title="planForm.selectedPlan + ' Week Program'" style="text-align: left" size="lg" ok-title="Submit" @ok="sendPlan">
+            <b-modal id="modal1" :title="planForm.selectedPlan + ' Program'" style="text-align: left" size="lg" ok-title="Submit" @ok="sendPlan">
               <p class="my-4">
-                This is the {{ planForm.selectedPlan }} week program. All programs are custom designed by me to maximize your fitness progress.
+                This is the {{ planForm.selectedPlan }} program.
+                <br><br>
+                All programs are custom designed by me to maximize your fitness progress.
                 Please enter the following information so that I may review it. Once you submit, I will receive an email
                 that contains your information and I will get in touch with you!
               </p>

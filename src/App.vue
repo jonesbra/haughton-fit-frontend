@@ -5,7 +5,7 @@
         <img src="./assets/haughtonFitLogo.png" style="width: 30vh">
       </b-navbar-brand>
       <b-navbar-nav v-if="user">
-        <b-nav-text> {{ user.email }} </b-nav-text>
+        <b-nav-text> {{ userData.firstName }} {{ userData.lastName }} </b-nav-text>
         <b-nav-item><b-button variant="danger" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
       </b-navbar-nav>
     </b-navbar>
@@ -53,6 +53,28 @@
     <b-modal id="signUpModal" title="Sign Up" ok-title="Sign Up" @ok="signUpWithEmailAndPassword" @cancel="resetSignUpForm">
       <b-form>
         <b-form-group id="group1"
+                      label="First Name:"
+                      label-for="signUpFirstNameInput">
+          <b-form-input id="signUpFirstNameInput"
+                        type="text"
+                        v-model="signUpForm.firstName"
+                        required
+                        placeholder="Enter your first name">
+          </b-form-input>
+        </b-form-group>
+
+        <b-form-group id="group2"
+                      label="Last Name:"
+                      label-for="signUpLastNameInput">
+          <b-form-input id="signUpLastNameInput"
+                        type="text"
+                        v-model="signUpForm.lastName"
+                        required
+                        placeholder="Enter your last name">
+          </b-form-input>
+        </b-form-group>
+
+        <b-form-group id="group3"
                       label="Email address:"
                       label-for="signUpEmailInput"
                       description="We'll never share your email with anyone else.">
@@ -60,12 +82,11 @@
                         type="email"
                         v-model="signUpForm.email"
                         required
-                        placeholder="Enter email"
-                        size="lg">
+                        placeholder="Enter email">
           </b-form-input>
         </b-form-group>
 
-        <b-form-group id="group2"
+        <b-form-group id="group4"
                       label="Password"
                       label-for="signUpPasswordInput"
                       description="We'll never share your password with anyone else.">
@@ -73,20 +94,18 @@
                         type="password"
                         v-model="signUpForm.password"
                         required
-                        placeholder="Enter password"
-                        size="lg">
+                        placeholder="Enter password">
           </b-form-input>
         </b-form-group>
 
-        <b-form-group id="group3"
+        <b-form-group id="group5"
                       label="Verify Password"
                       label-for="logInVerifyPasswordInput">
           <b-form-input id="logInVerifyPasswordInput"
                         type="password"
                         v-model="signUpForm.verifyPassword"
                         required
-                        placeholder="Verify password"
-                        size="lg">
+                        placeholder="Verify password">
           </b-form-input>
         </b-form-group>
       </b-form>
@@ -139,6 +158,7 @@ export default {
   data () {
     return {
       user: null,
+      userData: {},
       logInForm: {
         email: '',
         password: ''
@@ -146,14 +166,36 @@ export default {
       signUpForm: {
         email: '',
         password: '',
-        verifyPassword: ''
+        verifyPassword: '',
+        firstName: '',
+        lastName: ''
       }
     }
   },
-  firebase: {
-    users: db.ref('users')
-  },
   methods: {
+    getUserData: function (user) {
+      return new Promise(function(resolve, reject) {
+        firebase.database().ref('/users/' + user.uid).once('value')
+        .then(function(snapshot) {
+          resolve(snapshot.val())
+        })
+        .catch(function(err) {
+          reject(err)
+        })
+      })
+    },
+    addUser: function (user) {
+      var data = {
+        firstName: this.signUpForm.firstName,
+        lastName: this.signUpForm.lastName,
+        email: user.email
+      }
+
+      var updates = {}
+      updates['/users/' + user.uid] = data
+
+      return firebase.database().ref().update(updates)
+    },
     signUpWithEmailAndPassword: function () {
       var self = this
 
@@ -164,6 +206,16 @@ export default {
         .then(function(user) {
           console.log(user)
           self.user = user
+          self.addUser(user)
+          self.resetSignUpForm()
+          self.getUserData(user)
+            .then(function(response) {
+              self.userData = response
+              console.log(self.userData)
+            })
+            .catch(function(error) {
+              console.log(err)
+            })
         })
         .catch(function(error) {
           console.log(error)

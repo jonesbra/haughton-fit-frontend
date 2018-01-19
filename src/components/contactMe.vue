@@ -77,6 +77,7 @@
           <b-alert variant="danger"
                    dismissible
                    :show="showFailure"
+                   style="width: 100%"
                    @dismissed="showFailure=true">
             Failed to submit comment!
           </b-alert>

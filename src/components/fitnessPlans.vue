@@ -130,7 +130,7 @@ export default {
     sendPlan () {
       var self = this
 
-      var url = 'http://localhost:3000/email/plan'
+      var url = 'http://138.197.3.36:3000/email/plan'
       self.$http.post(url, self.planForm).then(response => {
         console.log('RESPONSE (GET):' + response.body)
         self.showSuccess = true

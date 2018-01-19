@@ -99,7 +99,7 @@ export default {
     sendComment () {
       var self = this
 
-      var url = 'http://localhost:3000/email/comment'
+      var url = 'http://138.197.3.36:3000/email/comment'
       self.$http.post(url, self.commentForm).then(response => {
         console.log('RESPONSE (GET):' + response.body)
         self.showSuccess = true

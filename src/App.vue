@@ -6,7 +6,7 @@
       </b-navbar-brand>
       <b-navbar-nav v-if="user">
         <b-nav-text> {{ user.email }} </b-nav-text>
-        <b-nav-item><b-button variant="danger" size="lg" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
+        <b-nav-item><b-button variant="danger" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
       </b-navbar-nav>
     </b-navbar>
 
@@ -14,8 +14,8 @@
       <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav>
-          <b-nav-item><b-button variant="success" size="lg" type="submit" v-b-modal.logInModal>Log In</b-button></b-nav-item>
-          <b-nav-item><b-button variant="success" size="lg" type="submit" v-b-modal.signUpModal>Sign Up</b-button></b-nav-item>
+          <b-nav-item><b-button variant="success" type="submit" v-b-modal.logInModal>Log In</b-button></b-nav-item>
+          <b-nav-item><b-button variant="success" type="submit" v-b-modal.signUpModal>Sign Up</b-button></b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

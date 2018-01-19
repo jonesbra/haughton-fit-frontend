@@ -8,13 +8,8 @@
         <b-row style="margin-top: 2vh">
           <b-col style="text-align: left; font-family: News Cycle; font-size: 2.5vh">
             <p>
-              Please let me know if you have any questions with this form!
-              Please let me know if you have any questions with this form!
-              Please let me know if you have any questions with this form!
-              Please let me know if you have any questions with this form!
-              Please let me know if you have any questions with this form!
-              Please let me know if you have any questions with this form!
-              Please let me know if you have any questions with this form!
+              Feel free to send me a comment addressing any questions, issues, or concerns you have. Just fill
+              out the form below, and I will receive an email with your comment.
             </p>
           </b-col>
         </b-row>

@@ -26,7 +26,7 @@
                               v-model="commentForm.email"
                               required
                               placeholder="Enter email"
-                              size="lg">
+                              size="sm">
                 </b-form-input>
               </b-form-group>
 
@@ -38,11 +38,11 @@
                               v-model="commentForm.name"
                               required
                               placeholder="Enter name"
-                              size="lg">
+                              size="sm">
                 </b-form-input>
               </b-form-group>
 
-              <b-button variant="primary" size="lg" @click="sendComment">Submit</b-button>
+              <b-button variant="primary" size="sm" @click="sendComment">Submit</b-button>
             </b-form>
           </b-col>
 
@@ -56,7 +56,7 @@
                                placeholder="Enter your comment"
                                :rows="3"
                                :max-rows="6"
-                               size="lg"
+                               size="sm"
                                style="height: 70%; position: absolute">
               </b-form-textarea>
             </b-form-group>

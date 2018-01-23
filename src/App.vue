@@ -1,16 +1,15 @@
 <template>
   <div style="text-align: center; margin-bottom: 10vh">
-    <b-navbar type="dark" style="height: 15vh; font-size: 3vh; background-color: black!important; border-bottom: 5px solid green">
+
+    <!-- Main Navbar -->
+    <b-navbar type="dark" style="height: 15vh; font-size: 3vh; background-color: black!important; border-bottom: 5px solid #0E7E12">
       <b-navbar-brand href="#" style="font-size: 5vh">
         <img src="./assets/haughtonFitLogo.png" style="width: 30vh">
       </b-navbar-brand>
-      <b-navbar-nav v-if="user">
-        <b-nav-text> {{ userData.firstName }} {{ userData.lastName }} </b-nav-text>
-        <b-nav-item><b-button variant="danger" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
-      </b-navbar-nav>
     </b-navbar>
 
-    <b-navbar toggleable v-if="!user" style="background-color: black!important">
+    <!-- Log In / Sign Up Navbar (Only if user signed in)-->
+    <b-navbar toggleable v-if="!userData" style="background-color: black!important">
       <b-navbar-toggle target="nav_dropdown_collapse" type="light"></b-navbar-toggle>
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav style="font-family: Rajdhani">
@@ -20,7 +19,16 @@
       </b-collapse>
     </b-navbar>
 
-    <b-modal id="logInModal" title="Log In" ok-title="Log In" @ok="signInWithEmailAndPassword" @cancel="resetLoginForm">
+    <!-- Name / Log Out Navbar (Only if user signed in) -->
+    <b-navbar v-if="userData" type="dark" style="background-color: black!important">
+      <b-navbar-brand style="font-family: Rajdhani; font-size: 2vh"> {{ userData.firstName }} {{ userData.lastName }} </b-navbar-brand>
+      <b-navbar-nav>
+        <b-nav-item><b-button variant="danger" size="sm" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
+
+    <!-- Log In Modal -->
+    <b-modal id="logInModal" title="Log In" ok-title="Log In" @ok="signInWithEmailAndPassword" @cancel="resetLoginForm" style="position: absolute">
       <b-form>
         <b-form-group id="group1"
                       label="Email address:"
@@ -50,6 +58,7 @@
       </b-form>
     </b-modal>
 
+    <!-- Log Out Modal -->
     <b-modal id="signUpModal" title="Sign Up" ok-title="Sign Up" @ok="signUpWithEmailAndPassword" @cancel="resetSignUpForm">
       <b-form>
         <b-form-group id="group1"
@@ -111,6 +120,7 @@
       </b-form>
     </b-modal>
 
+    <!-- Public View Modal -->
     <div v-if="!user">
       <about-me></about-me>
       <fitness-plans></fitness-plans>
@@ -118,10 +128,13 @@
       <videos></videos>
     </div>
 
-    <div v-if="user">
-      Some content
+    <!-- User View Modal -->
+    <div v-if="userData">
+      <user-form :userData=userData></user-form>
+      <user-update :userData=userData></user-update>
     </div>
 
+    <!-- Bottom Navbar -->
     <b-navbar fixed="bottom" type="dark" variant="success">
       <b-navbar-nav>
         <b-nav-text>Produced and Powered by <strong>B Jones</strong></b-nav-text>
@@ -135,6 +148,9 @@ import aboutMe from "./components/aboutMe.vue"
 import fitnessPlans from "./components/fitnessPlans.vue"
 import videos from "./components/videos.vue"
 import contactMe from "./components/contactMe.vue"
+import userForm from "./components/userForm.vue"
+import userUpdate from "./components/userUpdate.vue"
+
 import firebase from 'firebase'
 
 var config = {
@@ -153,12 +169,14 @@ export default {
     'about-me': aboutMe,
     'fitness-plans': fitnessPlans,
     'videos': videos,
-    'contact-me': contactMe
+    'contact-me': contactMe,
+    'user-form': userForm,
+    'user-update': userUpdate
   },
   data () {
     return {
       user: null,
-      userData: {},
+      userData: null,
       logInForm: {
         email: '',
         password: ''
@@ -188,7 +206,9 @@ export default {
       var data = {
         firstName: this.signUpForm.firstName,
         lastName: this.signUpForm.lastName,
-        email: user.email
+        email: user.email,
+        birthday: null,
+        gender: null
       }
 
       var updates = {}
@@ -229,7 +249,7 @@ export default {
       }
     },
     resetUser: function () {
-      this.user = null
+      this.user = this.userData = null
     },
     logOut: function () {
       this.resetUser()
@@ -246,8 +266,15 @@ export default {
 
       firebase.auth().signInWithEmailAndPassword(self.logInForm.email, self.logInForm.password)
       .then(function(firebaseUser) {
-        console.log(firebaseUser)
         self.user = firebaseUser
+
+        self.getUserData(firebaseUser)
+          .then(function(userData) {
+            self.userData = userData
+          })
+          .catch(function(error) {
+            console.log(error)
+          })
       })
       .catch(function(error) {
         console.log(error)
@@ -263,6 +290,11 @@ export default {
 <style>
   @import url('https://fonts.googleapis.com/css?family=Rajdhani');
   @import url('https://fonts.googleapis.com/css?family=Jura');
+
+  b-modal {
+    position: absolute;
+    width: 100%
+  }
 
   button.navbar-toggler {
     background-color: white;

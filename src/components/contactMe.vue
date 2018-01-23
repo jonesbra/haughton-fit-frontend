@@ -49,13 +49,15 @@
           <b-col style="text-align: left">
             <b-form-group id="textarea1"
                           label="Comment:"
-                          label-for="textarea1">
+                          label-for="textarea1"
+                          style="height: 100%">
               <b-form-textarea id="textarea1"
                                v-model="commentForm.comment"
                                placeholder="Enter your comment"
                                :rows="3"
                                :max-rows="6"
-                               size="lg">
+                               size="lg"
+                               style="height: 70%; position: absolute">
               </b-form-textarea>
             </b-form-group>
           </b-col>

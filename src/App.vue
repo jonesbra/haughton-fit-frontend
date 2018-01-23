@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center; margin-bottom: 10vh">
-    <b-navbar type="dark" style="height: 15vh; font-size: 3vh; background-color: black!important; opacity: 0.89; border-bottom: 5px solid green">
+    <b-navbar type="dark" style="height: 15vh; font-size: 3vh; background-color: black!important; border-bottom: 5px solid green">
       <b-navbar-brand href="#" style="font-size: 5vh">
         <img src="./assets/haughtonFitLogo.png" style="width: 30vh">
       </b-navbar-brand>
@@ -10,12 +10,12 @@
       </b-navbar-nav>
     </b-navbar>
 
-    <b-navbar type="dark" variant="dark" toggleable v-if="!user">
-      <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
+    <b-navbar toggleable v-if="!user" style="background-color: black!important">
+      <b-navbar-toggle target="nav_dropdown_collapse" type="light"></b-navbar-toggle>
       <b-collapse is-nav id="nav_dropdown_collapse">
-        <b-navbar-nav>
-          <b-nav-item><b-button variant="success" type="submit" v-b-modal.logInModal>Log In</b-button></b-nav-item>
-          <b-nav-item><b-button variant="success" type="submit" v-b-modal.signUpModal>Sign Up</b-button></b-nav-item>
+        <b-navbar-nav style="font-family: Rajdhani">
+          <b-nav-item><b-button variant="success" type="submit" size="md" v-b-modal.logInModal>Log In</b-button></b-nav-item>
+          <b-nav-item><b-button variant="success" type="submit" size="md" v-b-modal.signUpModal>Sign Up</b-button></b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -111,12 +111,6 @@
       </b-form>
     </b-modal>
 
-    <!--
-    <div style="text-align: center; background-color: #1D1D1D">
-      <img src="./assets/dillonWideEdited.jpg" style="width: 90%; border-radius: 25px; margin: 2vh">
-    </div>
-    -->
-
     <div v-if="!user">
       <about-me></about-me>
       <fitness-plans></fitness-plans>
@@ -127,6 +121,12 @@
     <div v-if="user">
       Some content
     </div>
+
+    <b-navbar fixed="bottom" type="dark" variant="success">
+      <b-navbar-nav>
+        <b-nav-text>Produced and Powered by <strong>B Jones</strong></b-nav-text>
+      </b-navbar-nav>
+    </b-navbar>
   </div>
 </template>
 
@@ -263,6 +263,10 @@ export default {
 <style>
   @import url('https://fonts.googleapis.com/css?family=Rajdhani');
   @import url('https://fonts.googleapis.com/css?family=Jura');
+
+  button.navbar-toggler {
+    background-color: white;
+  }
 
   .nav {
     font-family: Rajdhani;

@@ -16,25 +16,6 @@
             <b-form-group horizontal
                           :label-cols="2"
                           label-size="sm"
-                          label="Last Name:"
-                          label-for="lastNameInput">
-              <b-form-input id="lastNameInput" size="sm" v-model="userData.lastName" type="text"></b-form-input>
-            </b-form-group>
-            <b-form-group horizontal
-                          :label-cols="2"
-                          label-size="sm"
-                          label="Birthday:"
-                          label-for="birthdayInput"
-                          description="We only use your birthday to calculate your age">
-              <b-form-input id="birthdayInput" size="sm" v-model="userData.birthday" type="date"></b-form-input>
-            </b-form-group>
-          </b-col>
-
-          <b-col>
-
-            <b-form-group horizontal
-                          :label-cols="2"
-                          label-size="sm"
                           label="Gender:"
                           label-for="genderInput">
               <b-form-select v-model="userData.gender" size="sm" id="genderInput">
@@ -42,6 +23,25 @@
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </b-form-select>
+            </b-form-group>
+          </b-col>
+
+          <b-col>
+            <b-form-group horizontal
+                          :label-cols="2"
+                          label-size="sm"
+                          label="Last Name:"
+                          label-for="lastNameInput">
+              <b-form-input id="lastNameInput" size="sm" v-model="userData.lastName" type="text"></b-form-input>
+            </b-form-group>
+
+            <b-form-group horizontal
+                          :label-cols="2"
+                          label-size="sm"
+                          label="Birthday:"
+                          label-for="birthdayInput"
+                          description="We only use your birthday to calculate your age">
+              <b-form-input id="birthdayInput" size="sm" v-model="userData.birthday" type="date"></b-form-input>
             </b-form-group>
           </b-col>
         </b-row>

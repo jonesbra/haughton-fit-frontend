@@ -1,12 +1,12 @@
 <template>
   <div style="margin-top: 5vh">
-    <b-container style="max-width: 90%; margin: auto">
+    <b-container style="max-width: 100%; margin: auto">
         <b-row>
             <b-col style="font-family: Rajdhani; font-size: 5vh; border-bottom: 1px solid black"> Videos </b-col>
         </b-row>
 
         <b-row style="margin-top: 5vh">
-          <b-card-group deck>
+          <b-card-group deck style="max-width: 90%; margin: auto">
 
             <b-card header="Header">
               <b-card-body>

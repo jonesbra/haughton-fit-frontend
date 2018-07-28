@@ -84,6 +84,9 @@
 </template>
 
 <script>
+const urljoin = require('url-join')
+
+const backendUrl = 'http://localhost:3000'
 
 export default {
   data () {
@@ -101,7 +104,7 @@ export default {
     sendComment () {
       var self = this
 
-      var url = 'http://138.197.3.36:3000/email/comment'
+      var url = urljoin(backendUrl, 'email', 'comment')
       self.$http.post(url, self.commentForm).then(response => {
         console.log('RESPONSE (GET):' + response.body)
         self.showSuccess = true

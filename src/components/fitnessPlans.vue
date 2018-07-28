@@ -15,7 +15,7 @@
           <b-col style="margin-bottom: 2.5vh">
             <b-card  bg-variant="white" text-variant="dark" header="Bodybuilding Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani"
               header-border-variant="success"
-              img-src="./src/assets/philHeath.jpg"
+              img-src="./src/assets/stairs.jpg"
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
@@ -29,7 +29,7 @@
           <b-col style="margin-bottom: 2.5vh">
             <b-card  bg-variant="white" text-variant="dark" header="Powerlifting Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani"
               header-border-variant="success"
-              img-src="./src/assets/philHeath.jpg"
+              img-src="./src/assets/crossfit.jpg"
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
@@ -43,7 +43,7 @@
           <b-col>
             <b-card  bg-variant="white" text-variant="dark" header="Hybrid Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani"
               header-border-variant="success"
-              img-src="./src/assets/philHeath.jpg"
+              img-src="./src/assets/reverseDip.jpg"
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">

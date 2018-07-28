@@ -2,28 +2,68 @@
   <div style="text-align: center; margin-bottom: 10vh">
 
     <!-- Main Navbar -->
-    <b-navbar type="dark" style="height: 15vh; font-size: 3vh; background-color: black!important; border-bottom: 5px solid #0E7E12">
+    <b-navbar
+      type="dark"
+      variant="info"
+      toggleable="md"
+      v-if="showHeader"
+      style="background-color: black; max-width: 100%; margin: 0"
+      id="mainNavBar">
+
       <b-navbar-brand href="#" style="font-size: 5vh">
-        <img src="./assets/haughtonFitLogo.png" style="width: 30vh">
+        <img src="./assets/haughtonFitLogo.png" style="height: 8vh">
       </b-navbar-brand>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item right><a href="#" @click="href(url.instagram)"><i class="fa fa-instagram" style="font-size : 5vw; color: white; margin-right: 1vw"></i></a></b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item right><a href="#" @click="href(url.twitter)"><i class="fa fa-twitter" style="font-size : 5vw; color: white; margin-right: 1vw"></i></a></b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item right><a href="#" @click="href(url.facebook)"><i class="fa fa-facebook" style="font-size : 5vw; color: white; margin-right: 1vw"></i></a></b-nav-item>
+      </b-navbar-nav>
     </b-navbar>
 
-    <!-- Log In / Sign Up Navbar (Only if user signed in)-->
-    <b-navbar toggleable v-if="!userData" style="background-color: black!important">
-      <b-navbar-toggle target="nav_dropdown_collapse" type="light"></b-navbar-toggle>
-      <b-collapse is-nav id="nav_dropdown_collapse">
-        <b-navbar-nav style="font-family: Rajdhani">
-          <b-nav-item><b-button variant="success" type="submit" size="md" v-b-modal.logInModal>Log In</b-button></b-nav-item>
-          <b-nav-item><b-button variant="success" type="submit" size="md" v-b-modal.signUpModal>Sign Up</b-button></b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+
+
+
+    <div class="mainImage" v-if="!userData">
+      <img src="./assets/beardedGuy.jpg" style="width: 100%">
+      <div class="centered">
+        <md-button class="md-dense md-primary" style="background-color: blue; color: white" v-b-modal.logInModal>Log In</md-button>
+        <md-button class="md-dense md-primary" style="background-color: green; color: white" v-b-modal.signUpModal>Sign Up</md-button>
+      </div>
+    </div>
+
 
     <!-- Name / Log Out Navbar (Only if user signed in) -->
-    <b-navbar v-if="userData" type="dark" style="background-color: black!important">
-      <b-navbar-brand style="font-family: Rajdhani; font-size: 2vh"> {{ userData.firstName }} {{ userData.lastName }} </b-navbar-brand>
+    <b-navbar v-if="userData" type="dark" variant="info">
+      <b-navbar-brand style="font-family: Rajdhani; font-size: 3vh"> {{ userData.firstName }} {{ userData.lastName }} </b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item><b-button variant="danger" size="sm" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
+
+    <!-- Public View -->
+    <div v-if="!user" class="mainBody">
+      <about-me></about-me>
+      <fitness-plans></fitness-plans>
+      <contact-me></contact-me>
+      <!-- <videos></videos> -->
+    </div>
+
+    <!-- User View -->
+    <div v-if="userData">
+      <user-form :user="user" :userData="userData" :firebaseApp="firebaseApp"></user-form>
+      <user-update :user="user" :userData="userData" :firebaseApp="firebaseApp"></user-update>
+    </div>
+
+    <!-- Bottom Navbar -->
+    <b-navbar fixed="bottom" type="dark" variant="success" v-if="showFooter">
+      <b-navbar-nav>
+        <b-nav-text>Produced and Powered by <strong>B Jones</strong></b-nav-text>
       </b-navbar-nav>
     </b-navbar>
 
@@ -97,8 +137,7 @@
 
         <b-form-group id="group4"
                       label="Password"
-                      label-for="signUpPasswordInput"
-                      description="We'll never share your password with anyone else.">
+                      label-for="signUpPasswordInput">
           <b-form-input id="signUpPasswordInput"
                         type="password"
                         v-model="signUpForm.password"
@@ -119,27 +158,6 @@
         </b-form-group>
       </b-form>
     </b-modal>
-
-    <!-- Public View Modal -->
-    <div v-if="!user">
-      <about-me></about-me>
-      <fitness-plans></fitness-plans>
-      <contact-me></contact-me>
-      <videos></videos>
-    </div>
-
-    <!-- User View Modal -->
-    <div v-if="userData">
-      <user-form :userData=userData></user-form>
-      <user-update :userData=userData></user-update>
-    </div>
-
-    <!-- Bottom Navbar -->
-    <b-navbar fixed="bottom" type="dark" variant="success">
-      <b-navbar-nav>
-        <b-nav-text>Produced and Powered by <strong>B Jones</strong></b-nav-text>
-      </b-navbar-nav>
-    </b-navbar>
   </div>
 </template>
 
@@ -152,6 +170,7 @@ import userForm from "./components/userForm.vue"
 import userUpdate from "./components/userUpdate.vue"
 
 import firebase from 'firebase'
+var $ = require("jquery")
 
 var config = {
   apiKey: "AIzaSyAatQUSpNY6nhueZD7dEt7rfHs0_kwuubc",
@@ -161,8 +180,6 @@ var config = {
   storageBucket: "",
   messagingSenderId: "1069945483539"
 }
-var firebaseApp = firebase.initializeApp(config)
-var db = firebaseApp.database()
 
 export default {
     components: {
@@ -175,6 +192,13 @@ export default {
   },
   data () {
     return {
+      url: {
+        instagram: 'http://www.instagram.com/brandonj241',
+        facebook: 'https://www.facebook.com/brandonj241',
+        twitter: 'https://twitter.com/brandon_D3jones'
+      },
+      firebaseApp: firebase.initializeApp(config),
+      config: config,
       user: null,
       userData: null,
       logInForm: {
@@ -187,13 +211,21 @@ export default {
         verifyPassword: '',
         firstName: '',
         lastName: ''
-      }
+      },
+
+      showFooter: false,
+      showHeader: true,
+      platform: this.getOS()
     }
   },
   methods: {
+    href: function (url) {
+      window.open(url)
+    },
     getUserData: function (user) {
+      var self = this
       return new Promise(function(resolve, reject) {
-        firebase.database().ref('/users/' + user.uid).once('value')
+        self.firebaseApp.database().ref('/users/' + user.uid).once('value')
         .then(function(snapshot) {
           resolve(snapshot.val())
         })
@@ -214,7 +246,7 @@ export default {
       var updates = {}
       updates['/users/' + user.uid] = data
 
-      return firebase.database().ref().update(updates)
+      return this.firebaseApp.database().ref().update(updates)
     },
     signUpWithEmailAndPassword: function () {
       var self = this
@@ -222,9 +254,8 @@ export default {
       if (self.signUpForm.password !== self.signUpForm.verifyPassword) {
         self.resetSignUpForm()
       } else {
-        firebase.auth().createUserWithEmailAndPassword(self.signUpForm.email, self.signUpForm.password)
+        this.firebaseApp.auth().createUserWithEmailAndPassword(self.signUpForm.email, self.signUpForm.password)
         .then(function(user) {
-          console.log(user)
           self.user = user
           self.addUser(user)
           self.resetSignUpForm()
@@ -264,7 +295,7 @@ export default {
     signInWithEmailAndPassword: function () {
       var self = this
 
-      firebase.auth().signInWithEmailAndPassword(self.logInForm.email, self.logInForm.password)
+      this.firebaseApp.auth().signInWithEmailAndPassword(self.logInForm.email, self.logInForm.password)
       .then(function(firebaseUser) {
         self.user = firebaseUser
 
@@ -279,17 +310,69 @@ export default {
       .catch(function(error) {
         console.log(error)
       })
+    },
+
+    handleScroll: function () {
+      //
+      // Handle Header
+      var disappearHeight = 150
+      if (window.scrollY > disappearHeight) {
+        this.showHeader = false
+      } else {
+        this.showHeader = true
+        $('#mainNavBar').css('opacity', (disappearHeight - window.scrollY) / disappearHeight)
+      }
+
+      // Handle Footer
+      if ((this.$el.clientHeight - window.scrollY) < 700 && (this.platform === 'Mac OS' || this.platform === 'Windows' || this.platform === 'Linux')) {
+        this.showFooter = true
+      } else if ((this.$el.clientHeight - window.scrollY) < 900 && (this.platform === 'Android' || this.platform === 'iOS')) {
+        this.showFooter = true
+      } else {
+        this.showFooter = false
+      }
+    },
+    getOS: function () {
+      var userAgent = window.navigator.userAgent,
+          platform = window.navigator.platform,
+          macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+          windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+          iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+          os = null
+
+      if (macosPlatforms.indexOf(platform) !== -1) {
+        os = 'Mac OS'
+      } else if (iosPlatforms.indexOf(platform) !== -1) {
+        os = 'iOS'
+      } else if (windowsPlatforms.indexOf(platform) !== -1) {
+        os = 'Windows'
+      } else if (/Android/.test(userAgent)) {
+        os = 'Android'
+      } else if (!os && /Linux/.test(platform)) {
+        os = 'Linux'
+      }
+
+      return os
     }
   },
   beforeCreate: function() {
 
   },
+  created () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
 }
 </script>
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Rajdhani');
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
   @import url('https://fonts.googleapis.com/css?family=Jura');
+  @import url('https://fonts.googleapis.com/css?family=Racing+Sans+One');
 
   b-modal {
     position: absolute;
@@ -298,6 +381,23 @@ export default {
 
   button.navbar-toggler {
     background-color: white;
+  }
+
+  #mainNavBar {
+    height: 15vh;
+    font-size: 3vh;
+    background-color: black!important;
+    margin-bottom: 100vh;
+    opacity: 1;
+  }
+
+  .mainImage {
+    position: relative;
+    text-align: center;
+  }
+
+  .mainBody {
+    margin-top: 10vh
   }
 
   .nav {
@@ -310,6 +410,20 @@ export default {
   .item {
     color: red;
     font-size: 50px;
+  }
+
+  .centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .buttonLeft {
+    margin: 1vw
+  }
+  .buttonRight {
+    margin: 1vw
   }
 </style>
 

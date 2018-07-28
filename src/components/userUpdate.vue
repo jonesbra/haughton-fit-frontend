@@ -12,7 +12,7 @@
                           label-size="sm"
                           label="Body Weight:"
                           label-for="bodyWeightInput">
-              <b-form-input id="bodyWeightInput" size="sm" @input="bodyWeightUpdate" type="number"></b-form-input>
+              <b-form-input id="bodyWeightInput" size="sm" @input="bodyWeightUpdate" v-model="userData.weight" type="number"></b-form-input>
             </b-form-group>
           </b-col>
 
@@ -47,7 +47,7 @@
                                :rows="3"
                                :max-rows="6"
                                size="sm"
-                               style="height: 70%; position: absolute">
+                               style="height: 70%;">
               </b-form-textarea>
             </b-form-group>
           </b-col>
@@ -55,7 +55,7 @@
 
         <b-row style="margin-bottom: 2vh">
             <b-col>
-              <b-button variant="success" style="float: right">Update</b-button>
+              <b-button variant="success" style="float: right" @click="update">Update</b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -63,9 +63,8 @@
 </template>
 
 <script>
-
 export default {
-  props: ['userData'],
+  props: ['user', 'userData', 'firebaseApp'],
   data () {
     return {
       selected: '',
@@ -75,8 +74,15 @@ export default {
     }
   },
   methods: {
+    update: function () {
+      var updates = {}
+      updates['/users/' + this.user.uid] = this.userData
+
+      console.log(this.firebaseApp)
+      this.firebaseApp.database().ref().update(updates)
+    },
     bodyWeightUpdate: function () {
-      console.log('body weight update')
+
     },
     bodyFatUpdate: function () {
       console.log('body fat update')

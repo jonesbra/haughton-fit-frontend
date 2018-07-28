@@ -26,38 +26,12 @@
       </b-navbar-nav>
     </b-navbar>
 
-
-
-
-    <div class="mainImage" v-if="!userData">
-      <img src="./assets/beardedGuy.jpg" style="width: 100%">
-      <div class="centered">
-        <md-button class="md-dense md-primary" style="background-color: blue; color: white" v-b-modal.logInModal>Log In</md-button>
-        <md-button class="md-dense md-primary" style="background-color: green; color: white" v-b-modal.signUpModal>Sign Up</md-button>
-      </div>
-    </div>
-
-
-    <!-- Name / Log Out Navbar (Only if user signed in) -->
-    <b-navbar v-if="userData" type="dark" variant="info">
-      <b-navbar-brand style="font-family: Rajdhani; font-size: 3vh"> {{ userData.firstName }} {{ userData.lastName }} </b-navbar-brand>
-      <b-navbar-nav>
-        <b-nav-item><b-button variant="danger" size="sm" type="submit" @click="logOut">Log Out</b-button></b-nav-item>
-      </b-navbar-nav>
-    </b-navbar>
-
     <!-- Public View -->
-    <div v-if="!user" class="mainBody">
+    <div class="mainBody">
       <about-me></about-me>
       <fitness-plans></fitness-plans>
       <contact-me></contact-me>
       <!-- <videos></videos> -->
-    </div>
-
-    <!-- User View -->
-    <div v-if="userData">
-      <user-form :user="user" :userData="userData" :firebaseApp="firebaseApp"></user-form>
-      <user-update :user="user" :userData="userData" :firebaseApp="firebaseApp"></user-update>
     </div>
 
     <!-- Bottom Navbar -->
@@ -66,98 +40,6 @@
         <b-nav-text>Produced and Powered by <strong>B Jones</strong></b-nav-text>
       </b-navbar-nav>
     </b-navbar>
-
-    <!-- Log In Modal -->
-    <b-modal id="logInModal" title="Log In" ok-title="Log In" @ok="signInWithEmailAndPassword" @cancel="resetLoginForm" style="position: absolute">
-      <b-form>
-        <b-form-group id="group1"
-                      label="Email address:"
-                      label-for="logInEmailInput"
-                      description="We'll never share your email with anyone else.">
-          <b-form-input id="logInEmailInput"
-                        type="email"
-                        v-model="logInForm.email"
-                        required
-                        placeholder="Enter email"
-                        size="lg">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="group2"
-                      label="Password"
-                      label-for="logInPasswordInput"
-                      description="We'll never share your password with anyone else.">
-          <b-form-input id="logInPasswordInput"
-                        type="password"
-                        v-model="logInForm.password"
-                        required
-                        placeholder="Enter password"
-                        size="lg">
-          </b-form-input>
-        </b-form-group>
-      </b-form>
-    </b-modal>
-
-    <!-- Log Out Modal -->
-    <b-modal id="signUpModal" title="Sign Up" ok-title="Sign Up" @ok="signUpWithEmailAndPassword" @cancel="resetSignUpForm">
-      <b-form>
-        <b-form-group id="group1"
-                      label="First Name:"
-                      label-for="signUpFirstNameInput">
-          <b-form-input id="signUpFirstNameInput"
-                        type="text"
-                        v-model="signUpForm.firstName"
-                        required
-                        placeholder="Enter your first name">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="group2"
-                      label="Last Name:"
-                      label-for="signUpLastNameInput">
-          <b-form-input id="signUpLastNameInput"
-                        type="text"
-                        v-model="signUpForm.lastName"
-                        required
-                        placeholder="Enter your last name">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="group3"
-                      label="Email address:"
-                      label-for="signUpEmailInput"
-                      description="We'll never share your email with anyone else.">
-          <b-form-input id="signUpEmailInput"
-                        type="email"
-                        v-model="signUpForm.email"
-                        required
-                        placeholder="Enter email">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="group4"
-                      label="Password"
-                      label-for="signUpPasswordInput">
-          <b-form-input id="signUpPasswordInput"
-                        type="password"
-                        v-model="signUpForm.password"
-                        required
-                        placeholder="Enter password">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="group5"
-                      label="Verify Password"
-                      label-for="logInVerifyPasswordInput">
-          <b-form-input id="logInVerifyPasswordInput"
-                        type="password"
-                        v-model="signUpForm.verifyPassword"
-                        required
-                        placeholder="Verify password">
-          </b-form-input>
-        </b-form-group>
-      </b-form>
-    </b-modal>
   </div>
 </template>
 

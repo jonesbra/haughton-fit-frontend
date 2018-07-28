@@ -31,7 +31,6 @@
       <about-me></about-me>
       <fitness-plans></fitness-plans>
       <contact-me></contact-me>
-      <!-- <videos></videos> -->
     </div>
 
     <!-- Bottom Navbar -->

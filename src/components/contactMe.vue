@@ -26,7 +26,8 @@
                               v-model="commentForm.email"
                               required
                               placeholder="Enter email"
-                              size="sm">
+                              size="sm"
+                              @input="commentChange">
                 </b-form-input>
               </b-form-group>
 
@@ -38,11 +39,12 @@
                               v-model="commentForm.name"
                               required
                               placeholder="Enter name"
-                              size="sm">
+                              size="sm"
+                              @input="commentChange">
                 </b-form-input>
               </b-form-group>
 
-              <b-button variant="primary" size="sm" @click="sendComment">Submit</b-button>
+              <b-button variant="primary" size="sm" @click="sendComment" :disabled="!(validComment)">Submit</b-button>
             </b-form>
           </b-col>
 
@@ -57,7 +59,8 @@
                                :rows="3"
                                :max-rows="6"
                                size="sm"
-                               style="height: 70%; position: absolute">
+                               style="height: 70%; position: absolute"
+                               @input="commentChange">
               </b-form-textarea>
             </b-form-group>
           </b-col>
@@ -91,6 +94,7 @@ const backendUrl = 'http://localhost:3000'
 export default {
   data () {
     return {
+      validComment: false,
       commentForm: {
         email: '',
         name: '',
@@ -101,6 +105,18 @@ export default {
     }
   },
   methods: {
+    commentChange: function () {
+      this.validateCommentForm()
+    },
+    validateCommentForm: function () {
+      for (var key in this.commentForm) {
+        if (!(this.commentForm[key].trim())) {
+          this.validComment = false
+          return
+        }
+      }
+      this.validComment = true
+    },
     sendComment () {
       var self = this
 
@@ -115,9 +131,11 @@ export default {
 
       self.resetCommentForm()
     },
-
     resetCommentForm () {
-      this.commentForm.email = this.commentForm.name = this.commentForm.comment = ''
+      for (var key in this.commentForm) {
+        this.commentForm[key] = ''
+      }
+      this.commentChange()
     }
   }
 }

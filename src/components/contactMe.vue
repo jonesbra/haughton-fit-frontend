@@ -1,18 +1,13 @@
 <template>
-  <div style="margin-top: 10vh">
-    <b-container style="max-width: 90%; margin: auto">
-        <b-row>
-            <b-col style="font-family: Rajdhani; font-size: 5vh; border-bottom: 1px solid black"> Contact Me </b-col>
-        </b-row>
-
-        <b-row style="margin-top: 2vh">
-          <b-col style="text-align: left; font-family: News Cycle; font-size: 2.5vh">
-            <p>
-              Feel free to send me a comment addressing any questions, issues, or concerns you have. Just fill
-              out the form below, and I will receive an email with your comment.
-            </p>
-          </b-col>
-        </b-row>
+  <div>
+    <b-container class="section">
+      <b-row><b-col><div class="header">Contact Me</div></b-col></b-row>
+      <b-row class="body">
+        <b-col>
+          Feel free to send me a comment addressing any questions, issues, or concerns you have. Just fill
+          out the form below, and I will receive an email with your comment.
+        </b-col>
+      </b-row>
 
         <b-row style="font-size: 2.5vh; font-family: Rajdhani; margin-top: 2vh">
           <b-col style="text-align: left">
@@ -44,7 +39,6 @@
                 </b-form-input>
               </b-form-group>
 
-              <b-button variant="primary" size="sm" @click="sendComment" :disabled="!(validComment)">Submit</b-button>
             </b-form>
           </b-col>
 
@@ -59,7 +53,7 @@
                                :rows="3"
                                :max-rows="6"
                                size="sm"
-                               style="height: 70%; position: absolute"
+                               style="position: absolute; height: 80%; max-width: 70%"
                                @input="commentChange">
               </b-form-textarea>
             </b-form-group>
@@ -81,6 +75,11 @@
                    @dismissed="showFailure=true">
             Failed to submit comment!
           </b-alert>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-button style="width: 75%" variant="primary" size="sm" @click="sendComment" :disabled="!(validComment)">Submit</b-button>
+          </b-col>
         </b-row>
     </b-container>
   </div>
@@ -139,11 +138,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Rajdhani');
-  @import url('https://fonts.googleapis.com/css?family=News+Cycle');
-
-</style>
-
-<!-- alert-1.vue -->

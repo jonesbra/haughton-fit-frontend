@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center; margin-bottom: 10vh">
+  <div style="text-align: center">
 
     <!-- Main Navbar -->
     <b-navbar
@@ -16,18 +16,18 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item right><a href="#" @click="href(url.instagram)"><i class="fa fa-instagram" style="font-size : 5vw; color: white; margin-right: 1vw"></i></a></b-nav-item>
+        <b-nav-item right><a href="#" @click="href(url.instagram)"><i class="fa fa-instagram"></i></a></b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item right><a href="#" @click="href(url.twitter)"><i class="fa fa-twitter" style="font-size : 5vw; color: white; margin-right: 1vw"></i></a></b-nav-item>
+        <b-nav-item right><a href="#" @click="href(url.twitter)"><i class="fa fa-twitter"></i></a></b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item right><a href="#" @click="href(url.facebook)"><i class="fa fa-facebook" style="font-size : 5vw; color: white; margin-right: 1vw"></i></a></b-nav-item>
+        <b-nav-item right><a href="#" @click="href(url.facebook)"><i class="fa fa-facebook"></i></a></b-nav-item>
       </b-navbar-nav>
     </b-navbar>
 
-    <!-- Public View -->
-    <div class="mainBody">
+    <!-- Components -->
+    <div class="main">
       <about-me></about-me>
       <fitness-plans></fitness-plans>
       <contact-me></contact-me>
@@ -71,26 +71,6 @@ export default {
     href: function (url) {
       window.open(url)
     },
-    handleScroll: function () {
-      //
-      // Handle Header
-      var disappearHeight = 150
-      if (window.scrollY > disappearHeight) {
-        this.showHeader = false
-      } else {
-        this.showHeader = true
-        $('#mainNavBar').css('opacity', (disappearHeight - window.scrollY) / disappearHeight)
-      }
-
-      // Handle Footer
-      if ((this.$el.clientHeight - window.scrollY) < 700 && (this.platform === 'Mac OS' || this.platform === 'Windows' || this.platform === 'Linux')) {
-        this.showFooter = true
-      } else if ((this.$el.clientHeight - window.scrollY) < 900 && (this.platform === 'Android' || this.platform === 'iOS')) {
-        this.showFooter = true
-      } else {
-        this.showFooter = false
-      }
-    },
     getOS: function () {
       var userAgent = window.navigator.userAgent,
           platform = window.navigator.platform,
@@ -113,15 +93,6 @@ export default {
 
       return os
     }
-  },
-  beforeCreate: function() {
-
-  },
-  created () {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -133,56 +104,54 @@ export default {
   @import url('https://fonts.googleapis.com/css?family=Jura');
   @import url('https://fonts.googleapis.com/css?family=Racing+Sans+One');
 
-  b-modal {
-    position: absolute;
-    width: 100%
+  .main {
+    margin-bottom: 10vh;
   }
 
-  button.navbar-toggler {
-    background-color: white;
+  .section {
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .section .header {
+    margin-top: 10vh;
+    font-family: Rajdhani;
+    font-size: 5vh;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid black;
+    width: 100%;
+  }
+
+  .section .body {
+    font-family: News Cycle;
+    margin-top: 2vh;
+    font-size: 2.5vh;
+    text-align: left;
+  }
+
+  .fa {
+    font-size : 4vw;
+    color: white;
+    margin-right: 1vw;
+  }
+
+  .fa-instagram {
+    color: #517fa4!important;
+  }
+
+  .fa-twitter {
+    color: #00aced!important;
+  }
+
+  .fa-facebook {
+    color: #3b5998!important;
   }
 
   #mainNavBar {
     height: 15vh;
     font-size: 3vh;
     background-color: black!important;
-    margin-bottom: 100vh;
     opacity: 1;
-  }
-
-  .mainImage {
-    position: relative;
-    text-align: center;
-  }
-
-  .mainBody {
-    margin-top: 10vh
-  }
-
-  .nav {
-    font-family: Rajdhani;
-    padding: 1%;
-  }
-  .logo {
-    font-size: 4vh;
-  }
-  .item {
-    color: red;
-    font-size: 50px;
-  }
-
-  .centered {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .buttonLeft {
-    margin: 1vw
-  }
-  .buttonRight {
-    margin: 1vw
   }
 </style>
 

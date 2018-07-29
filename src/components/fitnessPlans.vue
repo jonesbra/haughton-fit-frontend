@@ -1,9 +1,7 @@
 <template>
-  <div style="margin-top: 10vh">
-    <b-container style="max-width: 90%; margin: auto; font-size: 2.5vh">
-        <b-row>
-            <b-col style="font-family: Rajdhani; font-size: 5vh; border-bottom: 1px solid black"> Fitness Plans </b-col>
-        </b-row>
+  <div>
+    <b-container class="section">
+      <b-row><b-col><div class="header">Fitness Plans</div></b-col></b-row>
 
         <b-row>
           <b-col style="font-family: News Cycle; margin-top: 2vh; font-size: 2.5vh; text-align: left">
@@ -13,7 +11,7 @@
 
         <b-row style="margin-top: 3vh">
           <b-col style="margin-bottom: 2.5vh">
-            <b-card  bg-variant="white" text-variant="dark" header="Bodybuilding Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani"
+            <b-card  bg-variant="white" text-variant="dark" header="Bodybuilding Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani; height: 50vh"
               header-border-variant="success"
               img-src="./src/assets/stairs.jpg"
               img-alt="Image"
@@ -27,7 +25,7 @@
           </b-col>
 
           <b-col style="margin-bottom: 2.5vh">
-            <b-card  bg-variant="white" text-variant="dark" header="Powerlifting Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani"
+            <b-card  bg-variant="white" text-variant="dark" header="Powerlifting Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani; height: 50vh"
               header-border-variant="success"
               img-src="./src/assets/crossfit.jpg"
               img-alt="Image"
@@ -41,7 +39,7 @@
           </b-col>
 
           <b-col>
-            <b-card  bg-variant="white" text-variant="dark" header="Hybrid Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani"
+            <b-card  bg-variant="white" text-variant="dark" header="Hybrid Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani; height: 50vh"
               header-border-variant="success"
               img-src="./src/assets/reverseDip.jpg"
               img-alt="Image"

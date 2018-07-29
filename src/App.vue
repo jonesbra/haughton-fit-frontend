@@ -26,6 +26,8 @@
       </b-navbar-nav>
     </b-navbar>
 
+    <img src="./assets/header.jpg">
+
     <!-- Components -->
     <div class="main">
       <about-me></about-me>

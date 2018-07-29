@@ -11,9 +11,9 @@
 
         <b-row style="margin-top: 3vh">
           <b-col style="margin-bottom: 2.5vh">
-            <b-card  bg-variant="white" text-variant="dark" header="Bodybuilding Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani; height: 50vh"
+            <b-card  bg-variant="white" text-variant="dark" header="Bodybuilding Program" header-bg-variant="light" class="program"
               header-border-variant="success"
-              img-src="./src/assets/stairs.jpg"
+              img-src="./src/assets/pullup.jpg"
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
@@ -25,9 +25,9 @@
           </b-col>
 
           <b-col style="margin-bottom: 2.5vh">
-            <b-card  bg-variant="white" text-variant="dark" header="Powerlifting Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani; height: 50vh"
+            <b-card  bg-variant="white" text-variant="dark" header="Powerlifting Program" header-bg-variant="light" class="program"
               header-border-variant="success"
-              img-src="./src/assets/crossfit.jpg"
+              img-src="./src/assets/seatedPress.jpg"
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
@@ -39,9 +39,9 @@
           </b-col>
 
           <b-col>
-            <b-card  bg-variant="white" text-variant="dark" header="Hybrid Program" header-bg-variant="light" style="box-shadow: 1vh 1vh grey; font-family: Rajdhani; height: 50vh"
+            <b-card  bg-variant="white" text-variant="dark" header="Hybrid Program" header-bg-variant="light" class="program"
               header-border-variant="success"
-              img-src="./src/assets/reverseDip.jpg"
+              img-src="./src/assets/dip.jpg"
               img-alt="Image"
               img-top>
               <p class="card-text" style="text-align: left; font-size: 2vh">
@@ -50,61 +50,61 @@
               </p>
               <b-btn v-b-modal.modal1 variant="success" @click="planForm.selectedPlan='Hybrid'" style="font-family: Jura">Start Here</b-btn>
             </b-card>
-
-            <b-modal id="modal1" :title="planForm.selectedPlan + ' Program'" style="text-align: left" size="lg" ok-title="Submit" @ok="sendPlan">
-              <p class="my-4">
-                This is the {{ planForm.selectedPlan }} program.
-                <br><br>
-                All programs are custom designed by me to maximize your fitness progress.
-                Please enter the following information so that I may review it. Once you submit, I will receive an email
-                that contains your information and I will get in touch with you!
-              </p>
-
-              <b-row style="font-size: 2.5vh; font-family: Rajdhani; margin-top: 2vh">
-                <b-col>
-                  <b-form>
-                    <b-form-group id="group1"
-                                  label="Email address:"
-                                  label-for="emailInput"
-                                  description="We'll never share your email with anyone else.">
-                      <b-form-input id="emailInput"
-                                    type="email"
-                                    v-model="planForm.email"
-                                    required
-                                    placeholder="Enter email"
-                                    size="lg">
-                      </b-form-input>
-                    </b-form-group>
-
-                    <b-form-group id="group2"
-                                  label="Your Name:"
-                                  label-for="nameInput">
-                      <b-form-input id="nameInput"
-                                    type="text"
-                                    v-model="planForm.name"
-                                    required
-                                    placeholder="Enter name"
-                                    size="lg">
-                      </b-form-input>
-                    </b-form-group>
-
-                    <b-form-group id="group3"
-                                  label="Your Phone Number:"
-                                  label-for="numberInput">
-                      <b-form-input id="numberInput"
-                                    type="text"
-                                    v-model="planForm.number"
-                                    required
-                                    placeholder="Enter Phone"
-                                    size="lg">
-                      </b-form-input>
-                    </b-form-group>
-                  </b-form>
-                </b-col>
-              </b-row>
-            </b-modal>
           </b-col>
         </b-row>
+
+        <b-modal id="modal1" :title="planForm.selectedPlan + ' Program'" style="text-align: left" size="lg" ok-title="Submit" @ok="sendPlan">
+          <p class="my-4">
+            This is the {{ planForm.selectedPlan }} program.
+            <br><br>
+            All programs are custom designed by me to maximize your fitness progress.
+            Please enter the following information so that I may review it. Once you submit, I will receive an email
+            that contains your information and I will get in touch with you!
+          </p>
+
+          <b-row style="font-size: 2.5vh; font-family: Rajdhani; margin-top: 2vh">
+            <b-col>
+              <b-form>
+                <b-form-group id="group1"
+                              label="Email address:"
+                              label-for="emailInput"
+                              description="We'll never share your email with anyone else.">
+                  <b-form-input id="emailInput"
+                                type="email"
+                                v-model="planForm.email"
+                                required
+                                placeholder="Enter email"
+                                size="lg">
+                  </b-form-input>
+                </b-form-group>
+
+                <b-form-group id="group2"
+                              label="Your Name:"
+                              label-for="nameInput">
+                  <b-form-input id="nameInput"
+                                type="text"
+                                v-model="planForm.name"
+                                required
+                                placeholder="Enter name"
+                                size="lg">
+                  </b-form-input>
+                </b-form-group>
+
+                <b-form-group id="group3"
+                              label="Your Phone Number:"
+                              label-for="numberInput">
+                  <b-form-input id="numberInput"
+                                type="text"
+                                v-model="planForm.number"
+                                required
+                                placeholder="Enter Phone"
+                                size="lg">
+                  </b-form-input>
+                </b-form-group>
+              </b-form>
+            </b-col>
+          </b-row>
+        </b-modal>
     </b-container>
   </div>
 </template>
@@ -152,6 +152,12 @@ export default {
 <style>
   @import url('https://fonts.googleapis.com/css?family=Rajdhani');
   @import url('https://fonts.googleapis.com/css?family=News+Cycle');
+
+  .program {
+    box-shadow: 1vh 1vh grey;
+    font-family: Rajdhani;
+    height: 90vh;
+  }
 
 </style>
 

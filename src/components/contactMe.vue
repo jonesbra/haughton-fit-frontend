@@ -88,7 +88,6 @@
 
 <script>
 const urljoin = require('url-join')
-
 const backendUrl = 'http://localhost:3000'
 
 export default {

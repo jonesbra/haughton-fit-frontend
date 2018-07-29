@@ -112,6 +112,8 @@
 </template>
 
 <script>
+const urljoin = require('url-join')
+const backendUrl = 'http://localhost:3000'
 
 export default {
   data () {
@@ -130,7 +132,7 @@ export default {
     sendPlan () {
       var self = this
 
-      var url = 'http://138.197.3.36:3000/email/plan'
+      var url = urljoin(backendUrl, 'email', 'plan')
       self.$http.post(url, self.planForm).then(response => {
         console.log('RESPONSE (GET):' + response.body)
         self.showSuccess = true

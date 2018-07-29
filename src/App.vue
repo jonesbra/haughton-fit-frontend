@@ -36,9 +36,9 @@
     </div>
 
     <!-- Bottom Navbar -->
-    <b-navbar fixed="bottom" type="dark" variant="success" v-if="showFooter">
+    <b-navbar type="dark" variant="success">
       <b-navbar-nav>
-        <b-nav-text>Produced and Powered by <strong>B Jones</strong></b-nav-text>
+        <b-nav-text>Produced and Powered by <strong><a href="#" @click="href(url.instagram)">@brandonj241</a></strong></b-nav-text>
       </b-navbar-nav>
     </b-navbar>
   </div>

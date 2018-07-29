@@ -10,16 +10,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.get('/dist/build.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'build.js'))
-})
-
-app.get('/dist/main.css', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'main.css'))
-})
-
-app.get('/dist/haughtonFitLogo.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'haughtonFitLogo.png'))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, req.url))
 })
 
 var listenPort = '80'

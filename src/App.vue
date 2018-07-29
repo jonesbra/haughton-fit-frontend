@@ -45,31 +45,15 @@
 <script>
 import aboutMe from "./components/aboutMe.vue"
 import fitnessPlans from "./components/fitnessPlans.vue"
-import videos from "./components/videos.vue"
 import contactMe from "./components/contactMe.vue"
-import userForm from "./components/userForm.vue"
-import userUpdate from "./components/userUpdate.vue"
 
-import firebase from 'firebase'
 var $ = require("jquery")
-
-var config = {
-  apiKey: "AIzaSyAatQUSpNY6nhueZD7dEt7rfHs0_kwuubc",
-  authDomain: "haughton-fit.firebaseapp.com",
-  databaseURL: "https://haughton-fit.firebaseio.com",
-  projectId: "haughton-fit",
-  storageBucket: "",
-  messagingSenderId: "1069945483539"
-}
 
 export default {
     components: {
     'about-me': aboutMe,
     'fitness-plans': fitnessPlans,
-    'videos': videos,
-    'contact-me': contactMe,
-    'user-form': userForm,
-    'user-update': userUpdate
+    'contact-me': contactMe
   },
   data () {
     return {
@@ -78,22 +62,6 @@ export default {
         facebook: 'https://www.facebook.com/brandonj241',
         twitter: 'https://twitter.com/brandon_D3jones'
       },
-      firebaseApp: firebase.initializeApp(config),
-      config: config,
-      user: null,
-      userData: null,
-      logInForm: {
-        email: '',
-        password: ''
-      },
-      signUpForm: {
-        email: '',
-        password: '',
-        verifyPassword: '',
-        firstName: '',
-        lastName: ''
-      },
-
       showFooter: false,
       showHeader: true,
       platform: this.getOS()
@@ -103,96 +71,6 @@ export default {
     href: function (url) {
       window.open(url)
     },
-    getUserData: function (user) {
-      var self = this
-      return new Promise(function(resolve, reject) {
-        self.firebaseApp.database().ref('/users/' + user.uid).once('value')
-        .then(function(snapshot) {
-          resolve(snapshot.val())
-        })
-        .catch(function(err) {
-          reject(err)
-        })
-      })
-    },
-    addUser: function (user) {
-      var data = {
-        firstName: this.signUpForm.firstName,
-        lastName: this.signUpForm.lastName,
-        email: user.email,
-        birthday: null,
-        gender: null
-      }
-
-      var updates = {}
-      updates['/users/' + user.uid] = data
-
-      return this.firebaseApp.database().ref().update(updates)
-    },
-    signUpWithEmailAndPassword: function () {
-      var self = this
-
-      if (self.signUpForm.password !== self.signUpForm.verifyPassword) {
-        self.resetSignUpForm()
-      } else {
-        this.firebaseApp.auth().createUserWithEmailAndPassword(self.signUpForm.email, self.signUpForm.password)
-        .then(function(user) {
-          self.user = user
-          self.addUser(user)
-          self.resetSignUpForm()
-          self.getUserData(user)
-            .then(function(response) {
-              self.userData = response
-              console.log(self.userData)
-            })
-            .catch(function(error) {
-              console.log(err)
-            })
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
-      }
-    },
-    resetSignUpForm: function () {
-      this.signUpForm = {
-        email: '',
-        password: ''
-      }
-    },
-    resetUser: function () {
-      this.user = this.userData = null
-    },
-    logOut: function () {
-      this.resetUser()
-      this.resetLoginForm()
-    },
-    resetLoginForm: function () {
-      this.logInForm = {
-        email: '',
-        password: ''
-      }
-    },
-    signInWithEmailAndPassword: function () {
-      var self = this
-
-      this.firebaseApp.auth().signInWithEmailAndPassword(self.logInForm.email, self.logInForm.password)
-      .then(function(firebaseUser) {
-        self.user = firebaseUser
-
-        self.getUserData(firebaseUser)
-          .then(function(userData) {
-            self.userData = userData
-          })
-          .catch(function(error) {
-            console.log(error)
-          })
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
-    },
-
     handleScroll: function () {
       //
       // Handle Header

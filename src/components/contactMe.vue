@@ -87,7 +87,7 @@
 
 <script>
 const urljoin = require('url-join')
-const backendUrl = 'http://localhost:3000'
+const backendUrl = 'http://138.197.3.36:3000'
 
 export default {
   data () {
